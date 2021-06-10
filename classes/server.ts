@@ -29,22 +29,30 @@ export default class Server {
     }
 
     public static get instance() {
-        return this._instance || ( this._instance = new this() );
+        return this._instance || (this._instance = new this());
     }
 
     private escucharSockets() {
 
-        console.log('Escuchando conexiones - sockets');
+        // console.log('Escuchando conexiones - sockets');
 
         this.io.on('connection', cliente => {
 
-            console.log('Cliente conectado');
+            //console.log('Cliente conectado');
+
+            //console.log(cliente.id)
+
+            // Conectar cliente
+            socket.conectarCliente( cliente );
+
+            // Configurar usuario
+            socket.configurarUsuario(cliente, this.io);
 
             // Mensajes
-            socket.mensaje( cliente, this.io )
+            socket.mensaje(cliente, this.io);
 
             // Desconectar
-            socket.desconectar( cliente )
+            socket.desconectar(cliente);
 
         });
 
